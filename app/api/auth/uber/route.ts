@@ -4,7 +4,7 @@ export async function GET() {
   const clientId = process.env.UBER_CLIENT_ID;
 
   // IMPORTANT: trailing slash included
-  const redirectUri =
+    const redirectUri =
     "https://tally-app-three.vercel.app/api/auth/callback/uber/";
 
   const scopes = "eats.order";
