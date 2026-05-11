@@ -4,7 +4,7 @@ export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");
   const error = req.nextUrl.searchParams.get("error");
 
-  // Handle Uber OAuth errors
+  // Handle OAuth errors
   if (error) {
     return NextResponse.json(
       {
@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  // No auth code received
+  // No auth code
   if (!code) {
     return NextResponse.json(
       {
@@ -38,8 +38,11 @@ export async function GET(req: NextRequest) {
           client_id: process.env.UBER_CLIENT_ID!,
           client_secret: process.env.UBER_CLIENT_SECRET!,
           grant_type: "authorization_code",
+
+          // IMPORTANT: same exact redirect URI
           redirect_uri:
-            "https://tally-app-three.vercel.app/api/auth/callback/uber",
+            "https://tally-app-three.vercel.app/api/auth/callback/uber/",
+
           code,
         }),
       }
